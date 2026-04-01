@@ -1,5 +1,5 @@
 /* ============================================
-   Carrinho de Compras - Senna Doce
+   Carrinho de Compras - Doce Amor Gi
    ============================================ */
 
 /* Botão flutuante para abrir carrinho */
@@ -10,7 +10,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--dourado) 0%, var(--marrom) 100%);
+    background: linear-gradient(135deg, var(--dourado) 0%, #a87b82 45%, var(--marrom) 100%);
     color: var(--branco);
     border: none;
     cursor: pointer;

@@ -1,5 +1,5 @@
 /**
- * Senna Doce - Cardápio Digital
+ * Doce Amor Gi - Cardápio Digital
  * Script principal - animações e funcionalidades
  */
 
@@ -171,7 +171,7 @@ function initSmoothScroll() {
  */
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
-        '.categoria-card, .galeria-item, .avaliacao-card, .produto-card, .produto-card-home'
+        '.categoria-card, .galeria-item, .avaliacao-card, .produto-card, .produto-card-home, .showcase-doces-card, .section-story-block, .sobre-mim-conteudo, .sobre-mim-galeria, .info-encomendas-intro, .info-encomendas-card'
     );
 
     const observerOptions = {
@@ -203,7 +203,13 @@ function initScrollAnimations() {
         .galeria-item.visible,
         .avaliacao-card.visible,
         .produto-card.visible,
-        .produto-card-home.visible {
+        .produto-card-home.visible,
+        .showcase-doces-card.visible,
+        .section-story-block.visible,
+        .sobre-mim-conteudo.visible,
+        .sobre-mim-galeria.visible,
+        .info-encomendas-intro.visible,
+        .info-encomendas-card.visible {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
@@ -221,16 +227,20 @@ function initProdutoModal() {
     const modal = document.getElementById('produtoModal');
     if (!modal) return;
 
-    const modalImg = modal.querySelector('.modal-produto-img');
+    const modalFoto = modal.querySelector('.modal-produto-foto');
     const modalNome = modal.querySelector('.modal-produto-nome');
     const modalDescricao = modal.querySelector('.modal-produto-descricao');
     const modalIngredientes = modal.querySelector('.modal-produto-ingredientes');
     const ingredientesWrap = modal.querySelector('.modal-produto-ingredientes-wrap');
-    const modalPedido = modal.querySelector('.modal-produto-pedido');
+    const modalPreco = modal.querySelector('.modal-produto-preco');
+    const modalPrecoWrap = modal.querySelector('.modal-produto-preco-wrap');
     const modalWhatsapp = modal.querySelector('.modal-produto-whatsapp');
     const btnClose = modal.querySelector('.modal-close');
 
     function getImagemFromCard(card) {
+        if (card.dataset.produtoImagem) return String(card.dataset.produtoImagem).trim();
+        const thumb = card.querySelector('.produto-thumb-img');
+        if (thumb && thumb.getAttribute('src')) return thumb.getAttribute('src').trim();
         const imgDiv = card.querySelector('.produto-img, .produto-img-home');
         if (!imgDiv) return '';
         const style = imgDiv.getAttribute('style') || '';
@@ -239,19 +249,22 @@ function initProdutoModal() {
     }
 
     function openModal(card) {
-        const imagem = card.dataset.produtoImagem || getImagemFromCard(card);
+        const imagem = getImagemFromCard(card);
         const nome = card.dataset.produtoNome || (card.querySelector('h3')?.textContent || '');
         const descricao = card.dataset.produtoDescricao || card.querySelector('.produto-content p, .produto-content-home p')?.textContent || '';
         const ingredientesStr = card.dataset.produtoIngredientes || '';
         const pedido = card.dataset.produtoPedido || card.querySelector('.produto-preco')?.textContent || '';
-        const whatsapp = card.dataset.produtoWhatsapp || card.querySelector('a[href*="wa.me"]')?.getAttribute('href') || 'https://wa.me/5599999999999';
+        const whatsapp = card.dataset.produtoWhatsapp || card.querySelector('a[href*="wa.me"]')?.getAttribute('href') || 'https://wa.me/5547999999999';
 
-        modalImg.style.backgroundImage = imagem ? `url('${imagem}')` : 'none';
+        if (modalFoto) {
+            modalFoto.src = imagem || '';
+            modalFoto.alt = nome ? String(nome) : '';
+        }
         modalNome.textContent = nome || 'Produto';
         modalDescricao.textContent = descricao;
         modalDescricao.style.display = descricao ? '' : 'none';
-        modalPedido.textContent = pedido;
-        modalPedido.style.display = pedido ? '' : 'none';
+        if (modalPreco) modalPreco.textContent = pedido || '';
+        if (modalPrecoWrap) modalPrecoWrap.style.display = pedido ? '' : 'none';
         modalWhatsapp.href = whatsapp;
 
         if (modalIngredientes) {
@@ -276,6 +289,10 @@ function initProdutoModal() {
         modal.classList.remove('ativo');
         document.body.style.overflow = '';
         modal.setAttribute('aria-hidden', 'true');
+        if (modalFoto) {
+            modalFoto.src = '';
+            modalFoto.alt = '';
+        }
     }
 
     document.querySelectorAll('.btn-saiba-mais').forEach(btn => {

@@ -6,5 +6,5 @@ const CONFIG = {
     /** Número do WhatsApp com DDD (ex: 5547999999999) */
     telefoneWhatsApp: "5547999999999",
     /** Nome da empresa para identificação e chave do localStorage */
-    nomeEmpresa: "Senna Doce"
+    nomeEmpresa: "Doce Amor Gi"
 };
