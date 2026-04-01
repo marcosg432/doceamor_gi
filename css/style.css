@@ -592,6 +592,13 @@ ul {
     padding: 5rem 0;
 }
 
+/* Âncoras: compensar header fixo no scroll (mobile e desktop) */
+#categorias,
+#sobre-mim,
+#informacoes-encomendas {
+    scroll-margin-top: 5.5rem;
+}
+
 .section-title {
     font-family: var(--fonte-titulo);
     font-size: clamp(2rem, 4vw, 2.75rem);
@@ -2506,7 +2513,9 @@ ul {
     }
 
     .nav-menu.ativo .nav-dropdown.expanded .nav-dropdown-menu {
-        max-height: 400px;
+        max-height: min(80vh, 720px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-dropdown-menu li {

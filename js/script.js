@@ -128,9 +128,12 @@ function initMobileMenu() {
         }
     });
 
-    // Fechar ao clicar em um link (inclui links do dropdown)
+    // Fechar ao clicar em um link (inclui links do dropdown).
+    // setTimeout(0): evita que iOS/WebView cancele a navegação ao alterar DOM/overlay no mesmo tick do clique.
     navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
+        link.addEventListener('click', function() {
+            setTimeout(closeMenu, 0);
+        });
     });
 
     // Dropdown: clique para expandir no mobile
