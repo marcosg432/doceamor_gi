@@ -3,20 +3,42 @@
    Confeitaria fina — rosé, bege e chocolate
    ============================================ */
 
-/* Variáveis CSS */
+/* Variáveis CSS — paleta feminina premium: rosé, bege quente, chocolate suave */
 :root {
-    --branco: #ffffff;
-    --bege: #f7f2eb;
-    --bege-escuro: #ebe3d7;
-    /* Rosé (cor principal) — usada nos acentos onde havia dourado */
-    --dourado: #c9a0a8;
-    --dourado-claro: #e8d4d8;
-    --marrom: #5c3d2e;
-    --marrom-escuro: #3d2920;
-    --rosa-claro: #faf5f6;
-    --rosa-suave: #f0e0e4;
-    --sombra: rgba(92, 61, 46, 0.12);
-    --transicao: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --branco: #fdf8f5;
+    --bege: #f9f4ef;
+    --bege-escuro: #efe6dd;
+    --dourado: #b89ba0;
+    --dourado-claro: #eadadd;
+    --marrom: #5c4a42;
+    --marrom-escuro: #423530;
+    --marrom-medio: #73605a;
+    --rosa-claro: #fcf6f7;
+    --rosa-suave: #f5e8ec;
+    --card-superficie: linear-gradient(180deg, #fdf9f7 0%, #faf4f0 100%);
+    --sombra: rgba(92, 74, 66, 0.07);
+    --transicao: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --transicao-lenta: 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    --radius-card: 1.625rem;
+    --shadow-card:
+        0 2px 4px rgba(184, 155, 160, 0.07),
+        0 10px 28px rgba(92, 74, 66, 0.05);
+    --shadow-card-hover:
+        0 6px 16px rgba(184, 155, 160, 0.12),
+        0 18px 40px rgba(92, 74, 66, 0.07);
+    /* Preço — chocolate rosado, elegante, sem contraste duro */
+    --preco-chocolate: #634a42;
+    --preco-chocolate-suave: #7a5f56;
+    --preco-chocolate-hover: #5a3d35;
+    /* Botões — tom taupe/rosé que harmoniza com a marca */
+    --btn-primario-bg: linear-gradient(165deg, #7d6569 0%, #665055 48%, #554448 100%);
+    --btn-primario-bg-hover: linear-gradient(165deg, #6f575c 0%, #58464b 48%, #463739 100%);
+    --btn-primario-sombra: 0 3px 10px rgba(101, 80, 85, 0.18), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+    --btn-primario-sombra-hover: 0 5px 16px rgba(101, 80, 85, 0.22);
+    --btn-secundario-borda: rgba(184, 149, 156, 0.35);
+    --btn-secundario-borda-hover: rgba(184, 149, 156, 0.65);
+    --radius-media-card: 1.25rem;
+    --sombra-vitrine: 0 6px 20px rgba(92, 74, 66, 0.08), 0 2px 8px rgba(184, 155, 160, 0.12);
     --fonte-titulo: 'Cormorant Garamond', Georgia, serif;
     --fonte-texto: 'Outfit', -apple-system, sans-serif;
     /* Breakpoints (para referência - uso em media queries) */
@@ -43,9 +65,9 @@ body {
     font-family: var(--fonte-texto);
     font-weight: 400;
     color: var(--marrom);
-    background: linear-gradient(180deg, var(--branco) 0%, var(--bege) 35%, var(--rosa-claro) 100%);
+    background: linear-gradient(165deg, var(--branco) 0%, var(--rosa-claro) 42%, var(--bege) 100%);
     background-attachment: fixed;
-    line-height: 1.6;
+    line-height: 1.65;
     overflow-x: hidden;
     max-width: 100vw;
 }
@@ -201,18 +223,69 @@ ul {
 }
 
 .logo {
-    font-family: var(--fonte-titulo);
-    font-size: 1.65rem;
-    font-weight: 500;
-    color: var(--marrom-escuro);
-    letter-spacing: 0.04em;
-    text-transform: none;
-    transition: color var(--transicao), letter-spacing var(--transicao);
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    max-width: min(78vw, 340px);
+    transition: opacity var(--transicao), transform var(--transicao);
 }
 
 .logo:hover {
-    color: var(--marrom);
-    letter-spacing: 0.09em;
+    opacity: 0.94;
+    transform: scale(1.015);
+}
+
+.logo-img {
+    display: block;
+    height: clamp(3.35rem, 7.5vw, 5rem);
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.page-hero-brand {
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-hero-brand-logo {
+    height: clamp(4.75rem, 14vw, 7.5rem);
+    width: auto;
+    max-width: min(92vw, 380px);
+    object-fit: contain;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.35));
+}
+
+.hero-title--brand {
+    font-size: 0;
+    line-height: 0;
+    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+}
+
+.hero-title--brand .hero-logo {
+    display: block;
+    height: clamp(9.25rem, 27vw, 15rem);
+    width: auto;
+    max-width: min(96vw, 540px);
+    margin: 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.38));
+}
+
+.sobre-mim-marca {
+    margin-bottom: clamp(1.35rem, 3vw, 2rem);
+}
+
+.sobre-mim-logo {
+    display: block;
+    height: clamp(5rem, 15vw, 8rem);
+    width: auto;
+    max-width: min(100%, 380px);
+    object-fit: contain;
 }
 
 .nav-menu {
@@ -411,6 +484,54 @@ ul {
     border-radius: 1px;
 }
 
+/* Instagram — injetado no header (script.js), ao lado do menu */
+.nav-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: auto;
+    padding: 0.42rem 0.75rem 0.42rem 0.65rem;
+    border-radius: 999px;
+    font-family: var(--fonte-texto);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--marrom-escuro);
+    background: rgba(255, 252, 251, 0.65);
+    border: 1px solid rgba(210, 188, 195, 0.42);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) inset;
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+    z-index: 101;
+}
+
+.nav-instagram .instagram-icon {
+    flex-shrink: 0;
+    opacity: 0.92;
+}
+
+.nav-instagram:hover {
+    color: #3d2f2c;
+    background: rgba(248, 238, 242, 0.92);
+    border-color: rgba(195, 168, 176, 0.55);
+    transform: translateY(-1px);
+}
+
+.nav-instagram-handle {
+    font-family: var(--fonte-titulo);
+    font-style: italic;
+    font-weight: 500;
+}
+
+@media (max-width: 520px) {
+    .nav-instagram-handle {
+        display: none;
+    }
+
+    .nav-instagram {
+        padding: 0.4rem 0.55rem;
+    }
+}
+
 /* ============================================
    Hero Section - Carrossel
    ============================================ */
@@ -601,17 +722,25 @@ ul {
 
 .section-title {
     font-family: var(--fonte-titulo);
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 600;
-    color: var(--marrom);
+    font-size: clamp(2rem, 4.2vw, 2.85rem);
+    font-weight: 500;
+    color: var(--marrom-escuro);
     text-align: center;
     margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
 }
 
 .section-subtitle {
     text-align: center;
-    color: var(--marrom);
-    opacity: 0.8;
+    color: var(--marrom-medio);
+    opacity: 0.72;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.55;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 3rem;
 }
 
@@ -701,7 +830,7 @@ ul {
 .produtos-grid-home {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 @media (min-width: 481px) {
@@ -713,7 +842,7 @@ ul {
 @media (min-width: 769px) {
     .produtos-grid-home {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 2.25rem;
     }
 }
 
@@ -729,26 +858,53 @@ ul {
     }
 }
 
+/* Tokens locais do card — creme/rosé, sombras difusas (só o componente) */
+.produto-card-home,
+.produto-card {
+    --pc-radius: 2rem;
+    --pc-radius-media: 1.5rem;
+    --pc-sombra:
+        0 1px 0 rgba(255, 255, 255, 0.72) inset,
+        0 12px 36px rgba(118, 92, 88, 0.065),
+        0 4px 14px rgba(130, 105, 100, 0.04);
+    --pc-sombra-hover:
+        0 1px 0 rgba(255, 255, 255, 0.82) inset,
+        0 16px 44px rgba(118, 92, 88, 0.095),
+        0 6px 18px rgba(184, 155, 160, 0.1);
+}
+
 .produto-card-home {
-    background: var(--branco);
-    border-radius: 20px;
+    background: linear-gradient(168deg, #fcf8f4 0%, #f8f1ec 38%, #f4eae8 72%, #f2e6e9 100%);
+    border-radius: var(--pc-radius);
     overflow: hidden;
-    box-shadow: 0 6px 24px rgba(92, 61, 46, 0.09), 0 2px 10px rgba(201, 160, 168, 0.1);
-    border: 1px solid rgba(235, 227, 215, 0.85);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+    box-shadow: var(--pc-sombra);
+    border: 1px solid rgba(226, 205, 210, 0.55);
+    padding: 0.75rem 0.75rem 0;
+    transition: transform var(--transicao-lenta), box-shadow var(--transicao-lenta), border-color var(--transicao);
 }
 
 .produto-card-home:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 48px -12px rgba(92, 61, 46, 0.2), 0 8px 24px -8px rgba(201, 160, 168, 0.22);
+    transform: translateY(-5px);
+    box-shadow: var(--pc-sombra-hover);
+    border-color: rgba(212, 182, 190, 0.65);
 }
 
-/* Mídia do produto — imagem real, borda superior do card */
+/* Mídia — vitrine grande, integrada ao creme do card */
 .produto-card-media {
     overflow: hidden;
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--pc-radius-media);
     position: relative;
-    background: var(--bege-escuro);
+    background: linear-gradient(160deg, #eee4de 0%, #e8ddd8 45%, #e5d6d9 100%);
+    aspect-ratio: 4 / 5;
+    box-shadow:
+        0 6px 22px rgba(105, 82, 78, 0.08),
+        0 2px 8px rgba(184, 155, 160, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset 0 0 0 1px rgba(255, 252, 250, 0.35);
+}
+
+.produto-card-media--home {
+    aspect-ratio: 4 / 5;
 }
 
 .produto-thumb-img {
@@ -756,17 +912,17 @@ ul {
     display: block;
     object-fit: cover;
     object-position: center;
-    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(92, 61, 46, 0.12);
+    transition: transform var(--transicao-lenta);
 }
 
 .produto-card:hover .produto-thumb-img,
 .produto-card-home:hover .produto-thumb-img {
-    transform: scale(1.06);
+    transform: scale(1.04);
 }
 
 .produto-card-media--home .produto-thumb-img {
-    height: 240px;
+    height: 100%;
+    min-height: 0;
 }
 
 .produto-img-home {
@@ -782,31 +938,60 @@ ul {
 }
 
 .produto-content-home {
-    padding: 1.75rem;
+    padding: 2rem 1.65rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
+/* Título — serif editorial, contraste máximo com corpo */
 .produto-content-home h3 {
     font-family: var(--fonte-titulo);
-    font-size: 1.5rem;
+    font-size: clamp(1.48rem, 3.5vw, 1.88rem);
     font-weight: 600;
-    color: var(--marrom);
-    margin-bottom: 0.5rem;
+    font-style: italic;
+    color: #2a2220;
+    margin-bottom: 0.6rem;
+    line-height: 1.12;
+    letter-spacing: 0.025em;
+    font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 .produto-content-home p {
-    color: var(--marrom);
-    opacity: 0.85;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
+    font-family: var(--fonte-texto);
+    color: #6b5c58;
+    opacity: 0.92;
+    font-size: 0.8125rem;
+    margin-bottom: 0.45rem;
+    line-height: 1.68;
+    font-weight: 300;
+    letter-spacing: 0.015em;
 }
 
 .produto-preco {
     display: block;
-    font-weight: 600;
-    color: var(--dourado);
+    font-weight: 500;
+    color: var(--preco-chocolate);
     font-size: 1rem;
     margin-bottom: 1rem;
+}
+
+/* Preço — herança de valor: maior, chocolate com calor dourado */
+.produto-content-home > .produto-preco,
+.produto-content > .produto-preco:not(.produto-preco--lista) {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(1.22rem, 3.1vw, 1.52rem);
+    font-weight: 600;
+    font-style: normal;
+    color: #5c3f32;
+    margin-top: 1.15rem;
+    margin-bottom: 0.2rem;
+    padding-top: 0;
+    border-top: none;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.22;
+    text-shadow: 0 1px 0 rgba(255, 252, 248, 0.9);
 }
 
 .btn-produto-whatsapp {
@@ -874,6 +1059,42 @@ ul {
 
 .galeria-item:hover {
     transform: scale(1.04);
+}
+
+.galeria-instagram-cta {
+    margin-top: 1.75rem;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.galeria-instagram-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    max-width: 100%;
+    padding: 0.85rem 1.35rem;
+    border-radius: 999px;
+    font-family: var(--fonte-texto);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--marrom-escuro);
+    background: rgba(255, 252, 251, 0.88);
+    border: 1px solid rgba(218, 198, 204, 0.55);
+    box-shadow: 0 4px 20px rgba(120, 90, 95, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.galeria-instagram-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(190, 160, 172, 0.65);
+    background: #fffefb;
+    box-shadow: 0 8px 28px rgba(120, 90, 95, 0.1);
+}
+
+.galeria-instagram-icon {
+    flex-shrink: 0;
+    opacity: 0.9;
 }
 
 /* ========== Home — vitrines com fotos reais dos doces ========== */
@@ -1408,6 +1629,36 @@ ul {
     color: var(--marrom);
 }
 
+.cta-instagram-wrap {
+    margin-top: 1.35rem;
+    margin-bottom: 0;
+}
+
+.cta-instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--fonte-texto);
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: rgba(253, 248, 245, 0.92);
+    text-decoration: none;
+    padding: 0.35rem 0.5rem;
+    border-radius: 8px;
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+.cta-instagram-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-instagram-handle {
+    font-family: var(--fonte-titulo);
+    font-style: italic;
+    font-weight: 600;
+}
+
 /* ============================================
    Informações e Encomendas
    ============================================ */
@@ -1809,8 +2060,8 @@ ul {
 .produtos-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 2rem 0 4rem;
+    gap: 2rem;
+    padding: 2.5rem 0 4.75rem;
 }
 
 @media (min-width: 481px) {
@@ -1822,7 +2073,7 @@ ul {
 @media (min-width: 769px) {
     .produtos-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 2.25rem;
     }
 }
 
@@ -1839,21 +2090,24 @@ ul {
 }
 
 .produto-card {
-    background: var(--branco);
-    border-radius: 20px;
+    background: linear-gradient(168deg, #fcf8f4 0%, #f8f1ec 38%, #f4eae8 72%, #f2e6e9 100%);
+    border-radius: var(--pc-radius);
     overflow: hidden;
-    box-shadow: 0 6px 22px var(--sombra);
-    border: 1px solid rgba(235, 227, 215, 0.85);
-    transition: transform var(--transicao), box-shadow var(--transicao);
+    box-shadow: var(--pc-sombra);
+    border: 1px solid rgba(226, 205, 210, 0.55);
+    padding: 0.75rem 0.75rem 0;
+    transition: transform var(--transicao-lenta), box-shadow var(--transicao-lenta), border-color var(--transicao);
 }
 
 .produto-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(92, 64, 51, 0.2);
+    transform: translateY(-5px);
+    box-shadow: var(--pc-sombra-hover);
+    border-color: rgba(212, 182, 190, 0.65);
 }
 
 .produto-card .produto-thumb-img {
-    height: 220px;
+    height: 100%;
+    min-height: 0;
 }
 
 .produto-img {
@@ -1869,14 +2123,95 @@ ul {
 }
 
 .produto-content {
-    padding: 1.5rem;
+    padding: 2rem 1.65rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .produto-content h3 {
     font-family: var(--fonte-titulo);
-    font-size: 1.35rem;
+    font-size: clamp(1.48rem, 3.5vw, 1.88rem);
+    font-weight: 600;
+    font-style: italic;
+    color: #2a2220;
+    margin-bottom: 0.6rem;
+    line-height: 1.12;
+    letter-spacing: 0.025em;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+.produto-card-linha {
+    font-family: var(--fonte-texto);
+    font-size: 0.8125rem;
+    font-weight: 300;
+    color: #6b5c58;
+    opacity: 0.9;
+    line-height: 1.68;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.015em;
+}
+
+.produto-preco--lista {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    padding: 0.72rem 0.85rem;
+    background: rgba(255, 250, 248, 0.82);
+    border-radius: 1.1rem;
+    border: 1px solid rgba(220, 198, 204, 0.45);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+}
+
+.produto-preco--lista .produto-preco-titulo {
+    display: block;
+    font-family: var(--fonte-texto);
+    font-style: italic;
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--marrom);
-    margin-bottom: 0.5rem;
+    opacity: 0.72;
+    margin: 0 0 0.4rem;
+}
+
+.produto-preco-itens {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--fonte-texto);
+    font-size: 0.86rem;
+    color: var(--marrom);
+    line-height: 1.5;
+}
+
+.produto-preco-itens li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.65rem;
+    padding: 0.32rem 0;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.055);
+}
+
+.produto-preco-itens li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.produto-preco-q {
+    font-weight: 500;
+    opacity: 0.88;
+    flex-shrink: 0;
+}
+
+.produto-card-obs {
+    font-family: var(--fonte-texto);
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: #7a6c68;
+    opacity: 0.75;
+    margin: 0.15rem 0 0.85rem;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
 }
 
 .produto-whatsapp {
@@ -1905,27 +2240,38 @@ ul {
     height: 16px;
 }
 
-/* Botão Saiba mais */
+/* Saiba mais — secundário: quase só traço, sem peso de “formulário” */
 .btn-saiba-mais {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-top: 0.75rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    padding: 0.38rem 0.52rem;
+    font-size: 0.68rem;
     font-weight: 500;
-    line-height: 1.2;
-    color: var(--marrom);
-    background: var(--rosa-claro);
-    border: 1px solid var(--dourado);
-    border-radius: 12px;
+    font-family: var(--fonte-texto);
+    line-height: 1.35;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    color: #756560;
+    background: transparent;
+    border: 1px solid rgba(198, 175, 182, 0.55);
+    border-radius: 999px;
     cursor: pointer;
-    transition: var(--transicao);
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
 }
 
 .btn-saiba-mais:hover {
-    background: var(--dourado);
-    color: var(--branco);
+    background: rgba(255, 252, 251, 0.65);
+    color: #4f3d3a;
+    border-color: rgba(175, 148, 158, 0.65);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset;
+    transform: translateY(-1px);
+}
+
+.btn-saiba-mais:focus-visible {
+    outline: 2px solid rgba(184, 149, 156, 0.55);
+    outline-offset: 2px;
 }
 
 .produto-content-home .produto-buttons .btn-saiba-mais,
@@ -1935,25 +2281,72 @@ ul {
 
 .produto-content-home .produto-buttons,
 .produto-content .produto-buttons {
-    margin-top: 0.75rem;
-}
-
-.produto-content-home .produto-buttons,
-.produto-content .produto-buttons {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.65rem;
     align-items: stretch;
+    margin-top: 1.45rem;
 }
 
+/* Hierarquia: carrinho principal (maior), saiba mais leve */
 .produto-content-home .produto-buttons .btn-saiba-mais,
+.produto-content .produto-buttons .btn-saiba-mais {
+    order: 2;
+    flex: 0 1 34%;
+    min-width: 0;
+    min-height: 42px;
+}
+
+.produto-content-home .produto-buttons .btn-adicionar-carrinho,
+.produto-content .produto-buttons .btn-adicionar-carrinho {
+    order: 1;
+    flex: 1 1 62%;
+    min-width: 0;
+    min-height: 42px;
+}
+
 .produto-content-home .produto-buttons .btn-produto-whatsapp,
-.produto-content .produto-buttons .btn-saiba-mais,
+.produto-content .produto-buttons .btn-produto-whatsapp,
+.produto-content-home .produto-buttons .produto-whatsapp,
 .produto-content .produto-buttons .produto-whatsapp {
-    min-height: 36px;
-    flex-shrink: 0;
-    align-items: center;
-    box-sizing: border-box;
+    order: 1;
+    flex: 1 1 56%;
+    min-width: 0;
+    min-height: 40px;
+    margin-top: 0;
+}
+
+@media (max-width: 480px) {
+    .produto-content-home .produto-buttons,
+    .produto-content .produto-buttons {
+        flex-direction: column-reverse;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 0.55rem;
+    }
+
+    .produto-content-home .produto-buttons .btn-saiba-mais,
+    .produto-content .produto-buttons .btn-saiba-mais,
+    .produto-content-home .produto-buttons .btn-adicionar-carrinho,
+    .produto-content .produto-buttons .btn-adicionar-carrinho,
+    .produto-content-home .produto-buttons .btn-produto-whatsapp,
+    .produto-content .produto-buttons .btn-produto-whatsapp,
+    .produto-content-home .produto-buttons .produto-whatsapp,
+    .produto-content .produto-buttons .produto-whatsapp {
+        flex: 0 0 auto;
+        width: 100%;
+        order: unset;
+    }
+
+    .produto-content-home .produto-buttons .btn-adicionar-carrinho,
+    .produto-content .produto-buttons .btn-adicionar-carrinho,
+    .produto-content-home .produto-buttons .btn-produto-whatsapp,
+    .produto-content .produto-buttons .btn-produto-whatsapp,
+    .produto-content-home .produto-buttons .produto-whatsapp,
+    .produto-content .produto-buttons .produto-whatsapp {
+        order: -1;
+    }
 }
 
 /* ============================================
@@ -1966,12 +2359,13 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
-    background: rgba(61, 43, 36, 0.6);
-    backdrop-filter: blur(4px);
+    padding: 1.25rem;
+    background: rgba(61, 49, 44, 0.38);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .modal-overlay.ativo {
@@ -1985,12 +2379,13 @@ ul {
     max-width: min(640px, 96vw);
     max-height: 90vh;
     background: var(--branco);
-    border-radius: 22px;
+    border-radius: calc(var(--radius-card) + 6px);
     overflow: hidden;
-    box-shadow: 0 25px 80px rgba(92, 64, 51, 0.35);
-    transform: scale(0.9);
+    box-shadow: 0 12px 48px rgba(90, 69, 60, 0.12), 0 32px 80px rgba(90, 69, 60, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    transform: scale(0.96) translateY(8px);
     opacity: 0;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
 }
 
 .modal-overlay.ativo .modal-produto {
@@ -2043,17 +2438,19 @@ ul {
 }
 
 .modal-produto-body {
-    padding: 1.75rem 2rem 2rem;
+    padding: 1.85rem 1.75rem 2.1rem;
     overflow-y: auto;
     max-height: calc(90vh - 260px);
 }
 
 .modal-produto-nome {
     font-family: var(--fonte-titulo);
-    font-size: 1.75rem;
+    font-size: clamp(1.55rem, 4vw, 1.85rem);
     font-weight: 600;
-    color: var(--marrom);
+    color: var(--marrom-escuro);
     margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
 }
 
 .modal-produto-descricao {
@@ -2061,30 +2458,7 @@ ul {
     opacity: 0.9;
     line-height: 1.65;
     margin-bottom: 1.25rem;
-}
-
-.modal-produto-ingredientes-wrap {
-    margin-bottom: 1.25rem;
-}
-
-.modal-produto-ingredientes-wrap h4 {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--dourado);
-    margin-bottom: 0.5rem;
-}
-
-.modal-produto-ingredientes {
-    margin: 0;
-    padding-left: 1.25rem;
-    color: var(--marrom);
-    opacity: 0.9;
-}
-
-.modal-produto-ingredientes li {
-    margin-bottom: 0.25rem;
+    white-space: pre-line;
 }
 
 .modal-produto-preco-wrap {
@@ -2105,6 +2479,7 @@ ul {
     color: var(--marrom);
     font-size: 1.15rem;
     line-height: 1.45;
+    white-space: pre-line;
 }
 
 .modal-produto-whatsapp {
@@ -2119,10 +2494,6 @@ ul {
 .modal-produto-whatsapp svg {
     width: 18px;
     height: 18px;
-}
-
-.modal-produto-ingredientes-wrap.no-ingredientes {
-    display: none;
 }
 
 /* Responsivo modal */
@@ -2163,10 +2534,6 @@ ul {
     .modal-produto-descricao {
         font-size: 1rem;
         line-height: 1.6;
-        margin-bottom: 1.5rem;
-    }
-
-    .modal-produto-ingredientes-wrap {
         margin-bottom: 1.5rem;
     }
 
@@ -2312,20 +2679,13 @@ ul {
     }
 }
 
+.doces-grid .produto-card .produto-card-media {
+    aspect-ratio: 4 / 5;
+}
+
 .doces-grid .produto-card .produto-thumb-img {
-    height: 200px;
-}
-
-@media (max-width: 768px) {
-    .doces-grid .produto-card .produto-thumb-img {
-        height: 175px;
-    }
-}
-
-@media (max-width: 480px) {
-    .doces-grid .produto-card .produto-thumb-img {
-        height: 165px;
-    }
+    height: 100%;
+    min-height: 0;
 }
 
 /* Sobremesas - fotos grandes - responsivo */
@@ -2357,22 +2717,20 @@ ul {
     }
 }
 
+.sobremesas-grid .produto-card-media {
+    aspect-ratio: 4 / 5;
+}
+
 .sobremesas-grid .produto-thumb-img,
 .sobremesas-grid .produto-img {
-    height: 260px;
+    height: 100%;
+    min-height: 0;
 }
 
 @media (max-width: 768px) {
     .sobremesas-grid .produto-thumb-img,
     .sobremesas-grid .produto-img {
-        height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .sobremesas-grid .produto-thumb-img,
-    .sobremesas-grid .produto-img {
-        height: 180px;
+        min-height: 0;
     }
 }
 
@@ -2422,46 +2780,166 @@ ul {
    Responsivo - Breakpoints: 1200 | 992 | 768 | 480
    ============================================ */
 
-/* Tablet - 992px: menu hambúrguer */
+/* Topo do drawer mobile (marca + ícone Instagram) — inserido por script.js; invisível no desktop */
+.nav-drawer-brand {
+    display: none;
+}
+
+/* Tablet - 992px: menu hambúrguer / drawer premium */
 @media (max-width: 992px) {
+    /* Um só Instagram no mobile: dentro do drawer, não junto ao X do header */
+    .nav-instagram {
+        display: none !important;
+    }
+
     .nav {
         padding: 1rem 0;
     }
 
     .logo {
-        font-size: 1.35rem;
-        letter-spacing: 0.05em;
+        max-width: min(72vw, 300px);
+    }
+
+    .logo-img {
+        height: clamp(3rem, 12vw, 4rem);
+    }
+
+    .page-hero-brand-logo {
+        height: clamp(4.25rem, 18vw, 6.5rem);
+        max-width: min(90vw, 340px);
+    }
+
+    .nav-drawer-brand {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-shrink: 0;
+        padding: 0.35rem 0 1.15rem 0;
+        margin: 0 1.35rem 0.65rem 1.35rem;
+        border-bottom: 1px solid rgba(218, 198, 204, 0.5);
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+            opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+    }
+
+    .nav-menu.ativo .nav-drawer-brand {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-drawer-brand-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        min-width: 0;
+    }
+
+    .nav-drawer-brand-title {
+        font-family: var(--fonte-titulo);
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(1.55rem, 4.8vw, 1.9rem);
+        color: #2a2220;
+        letter-spacing: 0.03em;
+        line-height: 1.15;
+    }
+
+    .nav-drawer-brand-tagline {
+        font-family: var(--fonte-texto);
+        font-size: 0.62rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #8f7d7a;
+    }
+
+    /* Só ícone — evita duplicar o link do header no mobile */
+    .nav-drawer-instagram {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.75rem;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border-radius: 12px;
+        color: #5c4743;
+        background: rgba(255, 252, 251, 0.75);
+        border: 1px solid rgba(212, 188, 196, 0.55);
+        text-decoration: none;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+        transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.25s ease;
+    }
+
+    .nav-drawer-instagram:hover {
+        background: rgba(248, 236, 242, 0.92);
+        color: #3d2f2c;
+        border-color: rgba(190, 165, 174, 0.65);
+    }
+
+    .nav-drawer-instagram .instagram-icon {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
     }
 
     .nav-menu {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: min(320px, 85vw);
-        min-width: 280px;
+        right: 0;
+        width: min(360px, 88vw);
+        min-width: 288px;
         height: 100vh;
         height: 100dvh;
-        background: var(--branco);
+        max-height: 100dvh;
+        background: linear-gradient(168deg, #fcf8f5 0%, #f8f1ee 42%, #f4e9eb 100%);
         flex-direction: column;
         align-items: stretch;
-        padding: 5.5rem 1.5rem 2.5rem;
-        box-shadow: -5px 0 20px var(--sombra);
-        transition: right var(--transicao);
+        padding: 4.5rem 0 calc(1.35rem + env(safe-area-inset-bottom, 0px));
+        box-shadow:
+            -16px 0 48px rgba(92, 72, 68, 0.07),
+            -4px 0 20px rgba(184, 155, 160, 0.08);
+        border-left: 1px solid rgba(232, 212, 218, 0.65);
+        transform: translateX(104%);
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         overflow-y: auto;
         overflow-x: hidden;
         gap: 0;
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-menu.ativo {
-        right: 0;
+        transform: translateX(0);
     }
 
     .nav-menu > li {
-        border-bottom: 1px solid var(--bege-escuro);
+        margin: 0 1.35rem;
+        border-bottom: 1px solid rgba(226, 210, 205, 0.45);
     }
 
-    .nav-menu > li:last-of-type {
+    .nav-menu > li:has(> a.nav-whatsapp) {
+        margin-top: auto;
+        padding-top: 1.25rem;
+        padding-bottom: 0.2rem;
+        border-top: 1px solid rgba(218, 198, 204, 0.55);
         border-bottom: none;
+    }
+
+    .nav-menu > li > a:not(.nav-whatsapp) {
+        display: block;
+        padding: 1.05rem 0;
+        font-family: var(--fonte-texto);
+        font-weight: 500;
+        font-size: 0.92rem;
+        color: #453936;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+    }
+
+    .nav-menu > li > a:not(.nav-whatsapp)::after {
+        display: none;
     }
 
     /* Dropdown como accordion vertical - 100% largura, sem position absolute */
@@ -2476,16 +2954,32 @@ ul {
     .nav-dropdown-trigger {
         width: 100%;
         justify-content: space-between;
-        padding: 1rem 0;
+        padding: 1.05rem 0;
         text-align: left;
         flex-shrink: 0;
+        font-family: var(--fonte-texto);
+        font-weight: 500;
+        font-size: 0.92rem;
+        color: #453936;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+    }
+
+    .nav-dropdown-trigger::after {
+        display: none;
     }
 
     .nav-dropdown-trigger::before {
         order: 1;
+        border-top-color: #6b5a56;
+        opacity: 0.75;
     }
 
-    /* Submenu expansível - fluxo vertical normal */
+    .nav-dropdown.expanded .nav-dropdown-trigger::before {
+        transform: rotate(180deg);
+    }
+
+    /* Submenu expansível — painel rosé suave */
     .nav-dropdown-menu {
         position: static !important;
         left: auto !important;
@@ -2494,17 +2988,17 @@ ul {
         width: 100% !important;
         max-width: 100% !important;
         min-width: auto !important;
-        margin: 0.5rem 0 0.5rem 0 !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-        background: var(--bege) !important;
-        border-radius: 8px;
-        border: none !important;
+        margin: 0.35rem 0 0.65rem 0 !important;
+        padding: 0.25rem 0 !important;
+        box-shadow: 0 2px 14px rgba(120, 92, 95, 0.06) !important;
+        background: rgba(255, 250, 249, 0.95) !important;
+        border-radius: 14px;
+        border: 1px solid rgba(220, 200, 206, 0.5) !important;
         opacity: 1 !important;
         visibility: visible !important;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.35s ease;
+        transition: max-height 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
         flex-shrink: 0;
     }
 
@@ -2525,37 +3019,78 @@ ul {
     }
 
     .nav-dropdown-menu li + li {
-        border-top: 1px solid rgba(232, 224, 213, 0.8);
+        border-top: 1px solid rgba(232, 218, 214, 0.65);
     }
 
     .nav-dropdown-menu a {
         display: block;
         width: 100%;
         box-sizing: border-box;
-        padding: 0.7rem 1rem 0.7rem 1.5rem;
-        font-size: 0.95rem;
-        padding-left: 1.75rem;
+        padding: 0.78rem 1rem 0.78rem 1.35rem;
+        font-family: var(--fonte-texto);
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #53443f;
+        letter-spacing: 0.025em;
     }
 
     .nav-dropdown-menu a:hover {
-        background: rgba(201, 169, 98, 0.1);
-        padding-left: 1.9rem;
+        background: linear-gradient(90deg, rgba(245, 232, 236, 0.65) 0%, transparent 100%);
+        color: #3d302c;
+        padding-left: 1.5rem;
     }
 
-    .nav-menu a,
-    .nav-dropdown-trigger {
-        text-transform: none;
-        letter-spacing: 0.02em;
+    /* Contato — CTA fixa no rodapé do drawer, tom rosé/champagne (não verde água) */
+    .nav-menu > li > a.nav-whatsapp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0.2rem;
+        padding: 0.92rem 1.4rem !important;
+        border-radius: 14px;
+        font-family: var(--fonte-texto);
+        font-weight: 500;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fffefb !important;
+        background: linear-gradient(168deg, #9d9094 0%, #7d6d71 45%, #695c5f 100%) !important;
+        border: 1px solid rgba(255, 252, 250, 0.28) !important;
+        box-shadow:
+            0 4px 20px rgba(90, 72, 76, 0.16),
+            0 1px 0 rgba(255, 255, 255, 0.22) inset !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
     }
 
-    .nav-whatsapp {
-        text-transform: none;
-        padding: 0.85rem 1.25rem;
+    .nav-menu > li > a.nav-whatsapp:hover {
+        background: linear-gradient(168deg, #908386 0%, #726366 100%) !important;
+        color: #fffefb !important;
+        transform: translateY(-2px);
+        filter: brightness(1.03);
+        box-shadow:
+            0 8px 26px rgba(90, 72, 76, 0.2),
+            0 1px 0 rgba(255, 255, 255, 0.25) inset !important;
     }
 
     .nav-toggle {
         display: flex;
         z-index: 101;
+        width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 12px;
+        border: 1px solid rgba(210, 188, 195, 0.48);
+        background: rgba(255, 252, 251, 0.78);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.88) inset;
+    }
+
+    .nav-toggle:hover {
+        background: rgba(248, 240, 242, 0.92);
+        border-color: rgba(195, 172, 180, 0.55);
     }
 
     .nav-toggle.ativo span:nth-child(1) {
@@ -2573,14 +3108,40 @@ ul {
     .nav-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(48, 38, 36, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         z-index: 99;
-        animation: fadeIn 0.25s ease;
+        animation: navOverlayFade 0.4s ease;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+    @keyframes navOverlayFade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .nav-menu {
+            transition: transform 0.2s ease;
+        }
+
+        .nav-drawer-brand {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none;
+        }
+
+        .nav-overlay {
+            animation: none !important;
+        }
+
+        .nav-dropdown-menu {
+            transition: max-height 0.25s ease;
+        }
     }
 
     .whatsapp-float {
@@ -2620,10 +3181,15 @@ ul {
         padding: 7.5rem 1.5rem 4rem;
     }
 
-    .hero-title {
+    .hero-title:not(.hero-title--brand) {
         font-size: clamp(1.9rem, 8vw, 2.8rem);
         margin-bottom: 1.25rem;
         line-height: 1.2;
+    }
+
+    .hero-title--brand .hero-logo {
+        height: clamp(8.25rem, 36vw, 12.5rem);
+        max-width: min(96vw, 500px);
     }
 
     .hero-subtitle {
@@ -2714,20 +3280,20 @@ ul {
 
     .produto-content-home,
     .produto-content {
-        padding: 1.5rem;
+        padding: 1.65rem 1.4rem 2rem;
     }
 
     .produto-content-home h3,
     .produto-content h3 {
-        font-size: 1.35rem;
-        margin-bottom: 0.75rem;
-        line-height: 1.25;
+        font-size: 1.38rem;
+        margin-bottom: 0.55rem;
+        line-height: 1.18;
     }
 
     .produto-content-home p,
     .produto-content p {
-        font-size: 0.95rem;
-        line-height: 1.55;
+        font-size: 0.84rem;
+        line-height: 1.62;
     }
 
     .produto-preco {
@@ -2735,12 +3301,18 @@ ul {
         font-size: 1rem;
     }
 
-    .produto-buttons .btn-saiba-mais,
+    .produto-buttons .btn-adicionar-carrinho,
     .produto-buttons .btn-produto-whatsapp,
     .produto-buttons .produto-whatsapp {
-        min-height: 48px;
-        padding: 0.75rem 1.25rem;
-        font-size: 0.9rem;
+        min-height: 44px;
+        padding: 0.58rem 1rem;
+        font-size: 0.76rem;
+    }
+
+    .produto-buttons .btn-saiba-mais {
+        min-height: 42px;
+        padding: 0.5rem 0.7rem;
+        font-size: 0.72rem;
     }
 
     .produto-content-home .produto-buttons,
@@ -2841,9 +3413,28 @@ ul {
         padding: 7rem 1rem 3.5rem;
     }
 
-    .hero-title {
+    .hero-title:not(.hero-title--brand) {
         font-size: 1.8rem;
         margin-bottom: 1rem;
+    }
+
+    .hero-title--brand {
+        margin-bottom: 1rem;
+    }
+
+    .hero-title--brand .hero-logo {
+        height: clamp(7.75rem, 56vw, 11.5rem);
+        max-width: min(98vw, 460px);
+    }
+
+    .sobre-mim-logo {
+        height: clamp(4.5rem, 22vw, 7rem);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .sobre-mim-marca {
+        text-align: center;
     }
 
     .hero-subtitle {
@@ -2910,12 +3501,12 @@ ul {
 
     .produto-content-home,
     .produto-content {
-        padding: 1.25rem;
+        padding: 1.4rem 1.2rem 1.85rem;
     }
 
     .produto-content-home h3,
     .produto-content h3 {
-        font-size: 1.25rem;
+        font-size: 1.28rem;
     }
 
     .galeria-grid {

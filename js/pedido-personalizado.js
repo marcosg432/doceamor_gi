@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         msg += `Telefone: ${telefoneCliente}\n`;
         msg += '-------------';
 
-        const telefone = (typeof CONFIG !== 'undefined' && CONFIG.telefoneWhatsApp) ? CONFIG.telefoneWhatsApp : '5547999999999';
+        const telefone = (typeof CONFIG !== 'undefined' && CONFIG.telefoneWhatsApp) ? CONFIG.telefoneWhatsApp : '5515996451801';
         const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
 
         window.open(url, '_blank');

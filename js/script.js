@@ -4,11 +4,17 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    /* Depois do carrinho injetar Qtd.: descrição + preço único R$ X,XX (detalhes no modal via data-produto-pedido) */
+    initPadraoInfoCardsProduto();
+
     // Carrossel da hero section
     initHeroCarousel();
     
     // Menu mobile toggle
     initMobileMenu();
+
+    // Instagram no header (todas as páginas)
+    initInstagramHeaderLink();
     
     // Scroll suave para links âncora
     initSmoothScroll();
@@ -25,6 +31,74 @@ document.addEventListener('DOMContentLoaded', function() {
     // Botão Voltar ao Topo
     initScrollToTop();
 });
+
+/**
+ * Formata valor numérico para exibição em card (ex.: R$ 10,00)
+ * @param {number} valorNum
+ * @returns {string}
+ */
+function formatarPrecoCardBR(valorNum) {
+    if (!Number.isFinite(valorNum)) return '';
+    return 'R$ ' + valorNum.toFixed(2).replace('.', ',');
+}
+
+/**
+ * Padroniza informações visíveis nos cards: texto curto (data-produto-descricao)
+ * e apenas preço base em R$ X,XX; valores completos ficam em data-produto-pedido (modal).
+ */
+function initPadraoInfoCardsProduto() {
+    document.querySelectorAll('article.produto-card[data-produto-nome], article.produto-card-home[data-produto-nome]').forEach(card => {
+        const wrap = card.querySelector('.produto-content, .produto-content-home');
+        if (!wrap) return;
+        const h3 = wrap.querySelector('h3');
+        if (!h3) return;
+
+        const descDataset = (card.dataset.produtoDescricao || '').trim();
+        if (!wrap.querySelector('.produto-card-linha') && descDataset && !card.hasAttribute('data-produto-descricao-so-modal')) {
+            const linha = document.createElement('p');
+            linha.className = 'produto-card-linha';
+            linha.textContent = descDataset;
+            const precoExistente = wrap.querySelector('.produto-preco:not(.produto-preco--lista)');
+            if (precoExistente) precoExistente.insertAdjacentElement('beforebegin', linha);
+            else h3.insertAdjacentElement('afterend', linha);
+        }
+
+        const pedidoFull = (card.dataset.produtoPedido || '').trim();
+        const rawPreco = String(card.dataset.produtoPreco || '').replace(',', '.');
+        const n = parseFloat(rawPreco, 10);
+        const sobConsulta = /sob\s+consulta/i.test(pedidoFull);
+
+        let textoPreco = '';
+        if (sobConsulta && (!Number.isFinite(n) || n <= 0)) {
+            textoPreco = 'Sob consulta';
+        } else if (Number.isFinite(n) && n > 0) {
+            textoPreco = formatarPrecoCardBR(n);
+        } else if (pedidoFull) {
+            textoPreco = 'Consulte valores';
+        } else {
+            textoPreco = 'Consulte valores';
+        }
+
+        const anchor = wrap.querySelector('.produto-qty-row') || wrap.querySelector('.produto-buttons');
+        let elPreco = wrap.querySelector('.produto-preco:not(.produto-preco--lista)');
+
+        if (!elPreco && anchor) {
+            elPreco = document.createElement('p');
+            elPreco.className = 'produto-preco';
+            anchor.insertAdjacentElement('beforebegin', elPreco);
+        }
+
+        if (elPreco) {
+            elPreco.textContent = textoPreco;
+            if (elPreco.tagName === 'SPAN') {
+                const p = document.createElement('p');
+                p.className = 'produto-preco';
+                p.textContent = textoPreco;
+                elPreco.replaceWith(p);
+            }
+        }
+    });
+}
 
 /**
  * Carrossel da Hero Section
@@ -88,6 +162,34 @@ function initHeroCarousel() {
     startAutoPlay();
 }
 
+/** URL do Instagram (fallback se config.js não carregar) */
+function getInstagramUrl() {
+    return typeof CONFIG !== 'undefined' && CONFIG.instagramUrl
+        ? CONFIG.instagramUrl
+        : 'https://www.instagram.com/doceamorgi/';
+}
+
+var INSTAGRAM_SVG_ICON =
+    '<svg class="instagram-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>';
+
+/**
+ * Link estratégico Instagram no header (antes do menu hambúrguer)
+ */
+function initInstagramHeaderLink() {
+    const nav = document.querySelector('.nav');
+    const toggle = document.querySelector('.nav-toggle');
+    if (!nav || !toggle || nav.querySelector('.nav-instagram')) return;
+
+    const a = document.createElement('a');
+    a.className = 'nav-instagram';
+    a.href = getInstagramUrl();
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.setAttribute('aria-label', 'Instagram Doce Amor Gi — perfil @doceamorgi');
+    a.innerHTML = INSTAGRAM_SVG_ICON + '<span class="nav-instagram-handle">@doceamorgi</span>';
+    toggle.before(a);
+}
+
 /**
  * Menu mobile - toggle e overlay
  * Dropdown: hover no desktop, clique no mobile
@@ -100,11 +202,30 @@ function initMobileMenu() {
 
     if (!navToggle || !navMenu) return;
 
+    /* Cabeçalho do drawer mobile: marca + fechar (CSS oculta no desktop) */
+    if (!navMenu.querySelector('.nav-drawer-brand')) {
+        const igUrl = getInstagramUrl();
+        const brand = document.createElement('div');
+        brand.className = 'nav-drawer-brand';
+        brand.innerHTML =
+            '<div class="nav-drawer-brand-text">' +
+            '<span class="nav-drawer-brand-title">Doce Amor Gi</span>' +
+            '<span class="nav-drawer-brand-tagline">Doces finos · Sob encomenda</span>' +
+            '<a class="nav-drawer-instagram" href="' +
+            igUrl +
+            '" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram @doceamorgi">' +
+            INSTAGRAM_SVG_ICON +
+            '</a>' +
+            '</div>';
+        navMenu.insertBefore(brand, navMenu.firstChild);
+    }
+
     function closeMenu() {
         navToggle.classList.remove('ativo');
         navMenu.classList.remove('ativo');
         document.body.style.overflow = '';
         if (navDropdown) navDropdown.classList.remove('expanded');
+        if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
         const overlay = document.querySelector('.nav-overlay');
         if (overlay) overlay.remove();
     }
@@ -115,6 +236,7 @@ function initMobileMenu() {
         navMenu.classList.toggle('ativo');
         document.body.style.overflow = navMenu.classList.contains('ativo') ? 'hidden' : '';
         if (navDropdown) navDropdown.classList.remove('expanded');
+        if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
 
         if (isOpening && window.innerWidth <= 992) {
             const overlay = document.createElement('div');
@@ -143,6 +265,10 @@ function initMobileMenu() {
                 e.preventDefault();
                 e.stopPropagation();
                 navDropdown.classList.toggle('expanded');
+                dropdownTrigger.setAttribute(
+                    'aria-expanded',
+                    navDropdown.classList.contains('expanded') ? 'true' : 'false'
+                );
             }
         });
     }
@@ -233,8 +359,6 @@ function initProdutoModal() {
     const modalFoto = modal.querySelector('.modal-produto-foto');
     const modalNome = modal.querySelector('.modal-produto-nome');
     const modalDescricao = modal.querySelector('.modal-produto-descricao');
-    const modalIngredientes = modal.querySelector('.modal-produto-ingredientes');
-    const ingredientesWrap = modal.querySelector('.modal-produto-ingredientes-wrap');
     const modalPreco = modal.querySelector('.modal-produto-preco');
     const modalPrecoWrap = modal.querySelector('.modal-produto-preco-wrap');
     const modalWhatsapp = modal.querySelector('.modal-produto-whatsapp');
@@ -254,10 +378,11 @@ function initProdutoModal() {
     function openModal(card) {
         const imagem = getImagemFromCard(card);
         const nome = card.dataset.produtoNome || (card.querySelector('h3')?.textContent || '');
-        const descricao = card.dataset.produtoDescricao || card.querySelector('.produto-content p, .produto-content-home p')?.textContent || '';
-        const ingredientesStr = card.dataset.produtoIngredientes || '';
+        const descricao = (card.dataset.produtoDescricao || '').trim()
+            || card.querySelector('.produto-card-linha')?.textContent?.trim()
+            || '';
         const pedido = card.dataset.produtoPedido || card.querySelector('.produto-preco')?.textContent || '';
-        const whatsapp = card.dataset.produtoWhatsapp || card.querySelector('a[href*="wa.me"]')?.getAttribute('href') || 'https://wa.me/5547999999999';
+        const whatsapp = card.dataset.produtoWhatsapp || card.querySelector('a[href*="wa.me"]')?.getAttribute('href') || 'https://wa.me/5515996451801';
 
         if (modalFoto) {
             modalFoto.src = imagem || '';
@@ -269,19 +394,6 @@ function initProdutoModal() {
         if (modalPreco) modalPreco.textContent = pedido || '';
         if (modalPrecoWrap) modalPrecoWrap.style.display = pedido ? '' : 'none';
         modalWhatsapp.href = whatsapp;
-
-        if (modalIngredientes) {
-            modalIngredientes.innerHTML = '';
-            if (ingredientesStr) {
-                const itens = ingredientesStr.split(/[,|]/).map(s => s.trim()).filter(Boolean);
-                itens.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    modalIngredientes.appendChild(li);
-                });
-            }
-            ingredientesWrap.classList.toggle('no-ingredientes', !ingredientesStr.trim());
-        }
 
         modal.classList.add('ativo');
         document.body.style.overflow = 'hidden';

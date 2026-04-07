@@ -177,35 +177,49 @@
 }
 
 .carrinho-item-qty {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    background: var(--bege);
+    gap: 0.35rem;
+}
+
+.carrinho-item-qty-hint {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--marrom);
+    opacity: 0.55;
+    flex-shrink: 0;
+}
+
+.carrinho-item-qty-input {
+    width: 2.65rem;
+    min-width: 2.25rem;
+    max-width: 3.75rem;
+    padding: 0.28rem 0.35rem;
+    border: 1px solid rgba(92, 64, 51, 0.14);
     border-radius: 8px;
-}
-
-.carrinho-item-qty button {
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: var(--marrom);
-    font-size: 1.1rem;
-    line-height: 1;
-    border-radius: 4px;
-    transition: background 0.2s;
-}
-
-.carrinho-item-qty button:hover {
-    background: var(--bege-escuro);
-}
-
-.carrinho-item-qty span {
-    min-width: 24px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 1px 2px rgba(92, 64, 51, 0.05);
     text-align: center;
+    font-size: 0.85rem;
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    font-family: inherit;
     color: var(--marrom);
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.carrinho-item-qty-input:hover {
+    border-color: rgba(92, 64, 51, 0.22);
+}
+
+.carrinho-item-qty-input:focus {
+    outline: none;
+    border-color: rgba(168, 123, 130, 0.55);
+    box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.2);
+    background: var(--branco);
 }
 
 .carrinho-item-remove {
@@ -313,26 +327,106 @@
     transform: none;
 }
 
-/* Botão Adicionar ao carrinho nos produtos */
+/* Botão Adicionar — ação principal: chocolate suave, texto claro, refinado */
 .btn-adicionar-carrinho {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--marrom);
-    background: var(--bege);
-    border: 1px solid var(--dourado);
-    border-radius: 6px;
+    gap: 0.4rem;
+    padding: 0.48rem 1rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-family: var(--fonte-texto, 'Outfit', system-ui, sans-serif);
+    color: #fffdfb;
+    background: var(--btn-primario-bg, linear-gradient(168deg, #5e4840 0%, #4a362f 48%, #3d2a26 100%));
+    border: 1px solid rgba(255, 254, 251, 0.18);
+    border-radius: 999px;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    box-shadow: var(--btn-primario-sombra, 0 2px 8px rgba(61, 42, 38, 0.14));
+    transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, filter 0.35s ease;
 }
 
 .btn-adicionar-carrinho:hover {
-    background: var(--dourado);
-    color: var(--branco);
+    background: var(--btn-primario-bg-hover, linear-gradient(168deg, #534038 0%, #3f2e29 100%));
+    box-shadow: var(--btn-primario-sombra-hover, 0 4px 14px rgba(61, 42, 38, 0.18));
+    transform: translateY(-1px);
+    filter: brightness(1.02);
+}
+
+.btn-adicionar-carrinho:active {
+    transform: translateY(0);
+    filter: brightness(0.97);
+    box-shadow: 0 1px 4px rgba(61, 42, 38, 0.12);
+}
+
+.btn-adicionar-carrinho:focus-visible {
+    outline: 2px solid rgba(184, 149, 156, 0.75);
+    outline-offset: 2px;
+}
+
+/* Quantidade — discreta, fundo rosé integrado ao card */
+.produto-qty-row {
+    margin-top: 0.95rem;
+    margin-bottom: 0.05rem;
+}
+
+.produto-qty-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    font-weight: inherit;
+    line-height: 1.2;
+    max-width: 100%;
+}
+
+.produto-qty-label-text {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--marrom-medio, #6d584e);
+    opacity: 0.58;
+    flex-shrink: 0;
+}
+
+.produto-qty-input {
+    width: 2.35rem;
+    min-width: 2.2rem;
+    max-width: 3rem;
+    padding: 0.24rem 0.26rem;
+    border: none;
+    border-radius: 9px;
+    background: rgba(245, 232, 236, 0.55);
+    box-shadow: inset 0 1px 2px rgba(184, 155, 160, 0.12);
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    font-family: inherit;
+    color: var(--marrom-escuro, #423530);
+    box-sizing: border-box;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.produto-qty-input::placeholder {
+    color: rgba(115, 96, 90, 0.35);
+}
+
+.produto-qty-input:hover {
+    background: rgba(245, 232, 236, 0.85);
+}
+
+.produto-qty-input:focus {
+    outline: none;
+    background: rgba(253, 248, 245, 0.98);
+    box-shadow:
+        inset 0 1px 2px rgba(184, 155, 160, 0.08),
+        0 0 0 2px rgba(184, 155, 160, 0.32);
 }
 
 @media (max-width: 480px) {
@@ -354,4 +448,89 @@
         margin-top: 0.5rem;
         text-align: right;
     }
+
+    .produto-qty-row {
+        width: 100%;
+    }
+
+    .produto-qty-label {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .produto-qty-input {
+        flex: 0 0 auto;
+    }
+}
+
+/* ========== Cards de catálogo: CTA matte + qtd imperceptível ========== */
+article.produto-card .btn-adicionar-carrinho,
+article.produto-card-home .btn-adicionar-carrinho {
+    padding: 0.48rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.065em;
+    color: #fffefb;
+    background: linear-gradient(175deg, #9a8589 0%, #7d6a6e 48%, #6a5a5e 100%);
+    border: 1px solid rgba(255, 252, 251, 0.28);
+    border-radius: 999px;
+    box-shadow:
+        0 2px 8px rgba(94, 78, 82, 0.11),
+        0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}
+
+article.produto-card .btn-adicionar-carrinho:hover,
+article.produto-card-home .btn-adicionar-carrinho:hover {
+    background: linear-gradient(175deg, #8f7a7e 0%, #736063 100%);
+    box-shadow: 0 4px 14px rgba(94, 78, 82, 0.14);
+    filter: brightness(1.02);
+}
+
+article.produto-card .btn-adicionar-carrinho:active,
+article.produto-card-home .btn-adicionar-carrinho:active {
+    box-shadow: 0 1px 5px rgba(94, 78, 82, 0.1);
+    filter: brightness(0.98);
+}
+
+article.produto-card .produto-qty-row,
+article.produto-card-home .produto-qty-row {
+    margin-top: 1.1rem;
+    padding-top: 0.35rem;
+    border-top: none;
+}
+
+article.produto-card .produto-qty-label-text,
+article.produto-card-home .produto-qty-label-text {
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    opacity: 0.46;
+    font-weight: 400;
+}
+
+article.produto-card .produto-qty-input,
+article.produto-card-home .produto-qty-input {
+    width: 2.15rem;
+    min-width: 1.95rem;
+    padding: 0.16rem 0.18rem;
+    font-size: 0.68rem;
+    font-weight: 500;
+    border-radius: 999px;
+    background: rgba(252, 246, 244, 0.9);
+    border: 1px solid rgba(218, 202, 206, 0.35);
+    box-shadow: inset 0 1px 2px rgba(184, 155, 160, 0.06);
+}
+
+article.produto-card .produto-qty-input:hover,
+article.produto-card-home .produto-qty-input:hover {
+    background: rgba(255, 252, 251, 0.95);
+    border-color: rgba(200, 182, 188, 0.45);
+}
+
+article.produto-card .produto-qty-input:focus,
+article.produto-card-home .produto-qty-input:focus {
+    background: #fffefd;
+    border-color: rgba(188, 165, 172, 0.5);
+    box-shadow:
+        inset 0 1px 2px rgba(184, 155, 160, 0.05),
+        0 0 0 2px rgba(212, 190, 198, 0.28);
 }

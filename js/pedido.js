@@ -68,7 +68,7 @@ function finalizarPedido() {
         return;
     }
 
-    const telefone = CONFIG?.telefoneWhatsApp || '5547999999999';
+    const telefone = CONFIG?.telefoneWhatsApp || '5515996451801';
     const mensagem = montarMensagemPedido();
     const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
