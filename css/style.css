@@ -594,7 +594,7 @@ ul {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 700px;
+    max-width: 760px;
 }
 
 .hero-title {
@@ -607,6 +607,28 @@ ul {
     animation: fadeInUp 1s ease-out;
 }
 
+.hero-tagline {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.98);
+    margin: -0.25rem auto 1.1rem;
+    line-height: 1.45;
+    max-width: 28em;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+    animation: fadeInUp 1s ease-out 0.12s both;
+}
+
+.hero-tagline-sim {
+    font-weight: 700;
+    font-style: italic;
+    color: #fff5f7;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 0.06em;
+}
+
 .hero-subtitle {
     font-size: clamp(1rem, 2.2vw, 1.2rem);
     color: rgba(255, 255, 255, 0.96);
@@ -616,7 +638,7 @@ ul {
     max-width: 36rem;
     margin-left: auto;
     margin-right: auto;
-    animation: fadeInUp 1s ease-out 0.2s both;
+    animation: fadeInUp 1s ease-out 0.28s both;
 }
 
 .hero-text {
@@ -628,7 +650,7 @@ ul {
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-    animation: fadeInUp 1s ease-out 0.6s both;
+    animation: fadeInUp 1s ease-out 0.42s both;
 }
 
 .btn-whatsapp {
@@ -3190,6 +3212,12 @@ ul {
     .hero-title--brand .hero-logo {
         height: clamp(8.25rem, 36vw, 12.5rem);
         max-width: min(96vw, 500px);
+    }
+
+    .hero-tagline {
+        font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+        margin-bottom: 1rem;
+        padding: 0 0.25rem;
     }
 
     .hero-subtitle {

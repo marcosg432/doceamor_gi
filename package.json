@@ -1,0 +1,19 @@
+{
+    "name": "doceamor-gi-cardapio",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Cardápio digital Doce Amor Gi",
+    "scripts": {
+        "start": "node server.js",
+        "pm2:start": "pm2 start ecosystem.config.cjs",
+        "pm2:reload": "pm2 reload ecosystem.config.cjs",
+        "pm2:stop": "pm2 stop doceamor_gi",
+        "pm2:delete": "pm2 delete doceamor_gi"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "dependencies": {
+        "express": "^4.21.2"
+    }
+}
