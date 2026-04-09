@@ -54,9 +54,33 @@ function validarFormulario() {
 }
 
 /**
+ * Valida quantidades mínimas no servidor (obrigatório antes do envio).
+ * @returns {Promise<string|null>} Mensagem de erro ou null se ok
+ */
+async function validarCarrinhoNoServidor() {
+    try {
+        const r = await fetch('/api/validar-carrinho', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itens: carrinho }),
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok || !data.ok) {
+            return (
+                data.mensagem ||
+                'Não foi possível validar o pedido. Confira as quantidades no carrinho e tente de novo.'
+            );
+        }
+        return null;
+    } catch (e) {
+        return 'Não foi possível conectar ao servidor para validar o pedido. Verifique sua internet ou se o site está no ar, e tente novamente.';
+    }
+}
+
+/**
  * Finaliza o pedido: valida, monta mensagem e redireciona para WhatsApp
  */
-function finalizarPedido() {
+async function finalizarPedido() {
     if (carrinho.length === 0) {
         alert('Adicione itens ao carrinho antes de finalizar.');
         return;
@@ -65,6 +89,12 @@ function finalizarPedido() {
     const erro = validarFormulario();
     if (erro) {
         alert(erro);
+        return;
+    }
+
+    const erroMinimos = await validarCarrinhoNoServidor();
+    if (erroMinimos) {
+        alert(erroMinimos);
         return;
     }
 
