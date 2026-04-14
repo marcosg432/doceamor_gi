@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carrossel da hero section
     initHeroCarousel();
+
+    // Carrossel de fotos em cards de produto (fade, 3s, pausa no hover)
+    initProdutoThumbCarousels();
     
     // Menu mobile toggle
     initMobileMenu();
@@ -160,6 +163,60 @@ function initHeroCarousel() {
 
     updateSlideClasses();
     startAutoPlay();
+}
+
+/**
+ * Carrossel na área da foto de cards (ex.: lembrancinha Bem casado)
+ * Transição em fade; troca a cada 3s por padrão; pausa no hover
+ */
+function initProdutoThumbCarousels() {
+    document.querySelectorAll('.produto-thumb-carousel').forEach(wrap => {
+        const slides = wrap.querySelectorAll('.produto-thumb-carousel-slide');
+        if (slides.length < 2) return;
+
+        const raw = wrap.getAttribute('data-autoplay-ms');
+        const INTERVAL_MS = Math.max(1500, parseInt(raw || '3000', 10) || 3000);
+
+        slides.forEach((slide) => {
+            const src = slide.getAttribute('src');
+            if (src) {
+                const pre = new Image();
+                pre.src = src;
+            }
+        });
+
+        let currentIndex = 0;
+        let timer = null;
+
+        function applyActive() {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('is-active', i === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            applyActive();
+        }
+
+        function start() {
+            stop();
+            timer = setInterval(nextSlide, INTERVAL_MS);
+        }
+
+        function stop() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        wrap.addEventListener('mouseenter', stop);
+        wrap.addEventListener('mouseleave', start);
+
+        applyActive();
+        start();
+    });
 }
 
 /** URL do Instagram (fallback se config.js não carregar) */
@@ -365,6 +422,13 @@ function initProdutoModal() {
     const btnClose = modal.querySelector('.modal-close');
 
     function getImagemFromCard(card) {
+        const carousel = card.querySelector('.produto-thumb-carousel');
+        if (carousel) {
+            const active = carousel.querySelector('.produto-thumb-carousel-slide.is-active');
+            if (active && active.getAttribute('src')) return active.getAttribute('src').trim();
+            const first = carousel.querySelector('.produto-thumb-carousel-slide');
+            if (first && first.getAttribute('src')) return first.getAttribute('src').trim();
+        }
         if (card.dataset.produtoImagem) return String(card.dataset.produtoImagem).trim();
         const thumb = card.querySelector('.produto-thumb-img');
         if (thumb && thumb.getAttribute('src')) return thumb.getAttribute('src').trim();
